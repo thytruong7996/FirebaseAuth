@@ -1,63 +1,83 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-primary btn-block google"
-          (click)="googleSignInViaPopup()">
-              <i class="fab fa-google"></i>Google Login with Popup
-          </button>
-          <button class="btn btn-primary btn-block facebook">
-              <i class="fab fa-facebook-f"></i>Facebook Login with Popup
-          </button>
-          <button class="btn btn-primary btn-block twitter">
-              <i class="fab fa-twitter"></i>Twitter Login with Popup
-          </button>
-          <button class="btn btn-primary btn-block github">
-              <i class="fab fa-github"></i>Github Login with Popup
-          </button>
+  <div *ngIf="afAuth.authState | async as user; else login">
+      <div class="card" style="width: 18rem;">
+          <img [src]="user.photoURL" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ user.displayName }}</h5>
+            <p class="card-text">{{ user.email }}</p>
+            <a (click)="logout()" class="btn btn-primary">Logout</a>
+          </div>
         </div>
-        <div class="col">
-          <button class="btn btn-primary btn-block google"
-          (click)="googleSignInViaRedirect()">
-              <i class="fab fa-google"></i>Google Login with Redirect
-          </button>
-          <button class="btn btn-primary btn-block facebook">
-              <i class="fab fa-facebook-f"></i>Facebook Login with Redirect
-          </button>
-          <button class="btn btn-primary btn-block twitter">
-              <i class="fab fa-twitter"></i>Twitter Login with Redirect
-          </button>
-          <button class="btn btn-primary btn-block github">
-              <i class="fab fa-github"></i>Github Login with Redirect
-          </button>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <button class="btn btn-primary btn-block email">
-            <i class="fa fa-envelope"></i> Login with Email/Password
-        </button>
-        <button class="btn btn-primary btn-block phone">
-            <i class="fa fa-phone"></i>Login with Phone
-        </button>
-        <button class="btn btn-primary btn-block anonymous">
-            <i class="fa fa-user-secret"></i>Login with Anonymous
-        </button>
-      </div>
-    </div>
-    <div class="col">
-      <form>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input name="email" type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input name="password" type="text" class="form-control">
-        </div>
-        <button class="btn btn-primary btn-block">SignUp</button>
-      </form>
-    </div>
   </div>
+  <ng-template #login>
+      <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary btn-block google"
+                (click)="googleSignInViaPopup()">
+                    <i class="fab fa-google"></i>Google Login with Popup
+                </button>
+                <button class="btn btn-primary btn-block facebook"
+                (click)="facebookSignInViaPopup()">
+                    <i class="fab fa-facebook-f"></i>Facebook Login with Popup
+                </button>
+                <button class="btn btn-primary btn-block twitter"
+                (click)="twitterSignInViaPopup()">
+                    <i class="fab fa-twitter"></i>Twitter Login with Popup
+                </button>
+                <button class="btn btn-primary btn-block github"
+                (click)="githubSignInViaPopup()">
+                    <i class="fab fa-github"></i>Github Login with Popup
+                </button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary btn-block google"
+                (click)="googleSignInViaRedirect()">
+                    <i class="fab fa-google"></i>Google Login with Redirect
+                </button>
+                <button class="btn btn-primary btn-block facebook"
+                (click)="facebookSignInViaRedirect()">
+                    <i class="fab fa-facebook-f"></i>Facebook Login with Redirect
+                </button>
+                <button class="btn btn-primary btn-block twitter"
+                (click)="twitterSignInViaRedirect()">
+                    <i class="fab fa-twitter"></i>Twitter Login with Redirect
+                </button>
+                <button class="btn btn-primary btn-block github"
+                (click)="githubSignInViaRedirect()">
+                    <i class="fab fa-github"></i>Github Login with Redirect
+                </button>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <button class="btn btn-primary btn-block email">
+                  <i class="fa fa-envelope"></i> Login with Email/Password
+              </button>
+              <button class="btn btn-primary btn-block phone">
+                  <i class="fa fa-phone"></i>Login with Phone
+              </button>
+              <button class="btn btn-primary btn-block anonymous"
+              (click)="signInAnonymously()">
+                  <i class="fa fa-user-secret"></i>Login with Anonymous
+              </button>
+            </div>
+          </div>
+          <div class="col">
+            <form>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input name="email" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" [(ngModel)]="password" type="text" class="form-control">
+              </div>
+              <button class="btn btn-primary btn-block">SignUp</button>
+            </form>
+          </div>
+        </div>
+  </ng-template>
+  
 </div>

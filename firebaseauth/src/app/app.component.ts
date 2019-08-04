@@ -9,8 +9,9 @@ import { auth } from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'firebaseauth';
-  constructor(private afAuth: AngularFireAuth) {}
+  email: string;
+  password: string;
+  constructor(public afAuth: AngularFireAuth) {}
 
   ngOnInit() {
     this.afAuth.authState
@@ -27,4 +28,47 @@ export class AppComponent implements OnInit{
     .then((userCredentials) => console.log(userCredentials));
   }
   
+  facebookSignInViaPopup() {
+    this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  facebookSignInViaRedirect() {
+    this.afAuth.auth.signInWithRedirect(new auth.FacebookAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  twitterSignInViaPopup() {
+    this.afAuth.auth.signInWithPopup(new auth.TwitterAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  twitterSignInViaRedirect() {
+    this.afAuth.auth.signInWithRedirect(new auth.TwitterAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  githubSignInViaPopup() {
+    this.afAuth.auth.signInWithPopup(new auth.GithubAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  githubSignInViaRedirect() {
+    this.afAuth.auth.signInWithRedirect(new auth.GithubAuthProvider())
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  signInAnonymously() {
+    this.afAuth.auth.signInAnonymously()
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  signUp() {
+    this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
+    .then((userCredentials) => console.log(userCredentials));
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
 }
